@@ -124,7 +124,8 @@ namespace Falcor
 
             bool isFrontFaceCW = false;                 ///< Indicate whether front-facing side has clockwise winding in object space.
             bool useOriginalTangentSpace = false;       ///< Indicate whether to use the original tangent space that was loaded with the mesh. By default, we will ignore it and use MikkTSpace to generate the tangent space.
-            bool mergeDuplicateVertices = true;         ///< Indicate whether to merge identical vertices and adjust indices.
+            // thomasneff: this was disabled for parity with baseline/reference engines (like SAS)
+            bool mergeDuplicateVertices = false;         ///< Indicate whether to merge identical vertices and adjust indices.
             NodeID skeletonNodeId{ NodeID::Invalid() }; ///< For skinned meshes, the node ID of the skeleton's world transform. If invalid, the skeleton is based on the mesh's own world position (Assimp behavior pre-multiplies instance transform).
 
             template<typename T>

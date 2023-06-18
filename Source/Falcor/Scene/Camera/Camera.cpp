@@ -240,6 +240,7 @@ namespace Falcor
         mDirty = true;
         mPersistentViewMat = view;
         togglePersistentViewMatrix(true);
+        calculateCameraParameters();
     }
 
     void Camera::togglePersistentProjectionMatrix(bool persistent)
@@ -340,6 +341,7 @@ namespace Falcor
         setUpVector(up);
         setPosition(pos);
         setTarget(pos + fwd);
+        calculateCameraParameters();
     }
 
     void Camera::renderUI(Gui::Widgets& widget)

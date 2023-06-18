@@ -1009,21 +1009,21 @@ namespace Falcor
         }
 
         const SceneBuilder::Flags builderFlags = builder.getFlags();
-        uint32_t assimpFlags = aiProcessPreset_TargetRealtime_MaxQuality |
-            aiProcess_FlipUVs |
-            aiProcess_RemoveComponent;
+        uint32_t assimpFlags = aiProcess_FlipUVs;
 
-        assimpFlags &= ~(aiProcess_CalcTangentSpace); // Never use Assimp's tangent gen code
-        assimpFlags &= ~(aiProcess_FindDegenerates); // Avoid converting degenerated triangles to lines
-        assimpFlags &= ~(aiProcess_OptimizeGraph); // Never use as it doesn't handle transforms with negative determinants
-        assimpFlags &= ~(aiProcess_RemoveRedundantMaterials); // Avoid merging materials as it doesn't load all fields we care about, we merge in 'SceneBuilder' instead.
-        assimpFlags &= ~(aiProcess_SplitLargeMeshes); // Avoid splitting large meshes
-        if (is_set(builderFlags, SceneBuilder::Flags::DontMergeMeshes)) assimpFlags &= ~aiProcess_OptimizeMeshes; // Avoid merging original meshes
+		// thomasneff: these were uncommented to ensure parity between Falcor and comparison/baseline engines (like SAS)
+		// 			   PSAO should work fine with these enabled.
+        //assimpFlags &= ~(aiProcess_CalcTangentSpace); // Never use Assimp's tangent gen code
+        //assimpFlags &= ~(aiProcess_FindDegenerates); // Avoid converting degenerated triangles to lines
+        //assimpFlags &= ~(aiProcess_OptimizeGraph); // Never use as it doesn't handle transforms with negative determinants
+        //assimpFlags &= ~(aiProcess_RemoveRedundantMaterials); // Avoid merging materials as it doesn't load all fields we care about, we merge in 'SceneBuilder' instead.
+        //assimpFlags &= ~(aiProcess_SplitLargeMeshes); // Avoid splitting large meshes
+        //if (is_set(builderFlags, SceneBuilder::Flags::DontMergeMeshes)) assimpFlags &= ~aiProcess_OptimizeMeshes; // Avoid merging original meshes
 
         // Configure importer to remove vertex components we don't support.
         // It'll load faster and helps 'aiProcess_JoinIdenticalVertices' find identical vertices.
         int removeFlags = aiComponent_COLORS;
-        for (uint32_t uvLayer = 1; uvLayer < AI_MAX_NUMBER_OF_TEXTURECOORDS; uvLayer++) removeFlags |= aiComponent_TEXCOORDSn(uvLayer);
+        //for (uint32_t uvLayer = 1; uvLayer < AI_MAX_NUMBER_OF_TEXTURECOORDS; uvLayer++) removeFlags |= aiComponent_TEXCOORDSn(uvLayer);
         if (!is_set(builderFlags, SceneBuilder::Flags::UseOriginalTangentSpace)) removeFlags |= aiComponent_TANGENTS_AND_BITANGENTS;
 
         Assimp::Importer importer;

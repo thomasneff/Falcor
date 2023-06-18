@@ -131,8 +131,11 @@ namespace Falcor
         return Importer::getFileExtensionFilters();
     }
 
-    Scene::Scene(SceneData&& sceneData)
+
+    Scene::Scene(SceneData&& sceneDataArg)
+        : mSceneData(std::move(sceneDataArg))
     {
+        SceneData& sceneData = mSceneData;
         // Copy/move scene data to member variables.
         mPath = sceneData.path;
         mRenderSettings = sceneData.renderSettings;

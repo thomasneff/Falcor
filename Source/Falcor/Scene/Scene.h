@@ -440,6 +440,10 @@ namespace Falcor
         */
         static const FileDialogFilterVec& getFileExtensionFilters();
 
+        
+        SceneData mSceneData;
+        SceneData& getSceneData() { return mSceneData; }
+
         /** Create scene from file.
             \param[in] path Import the scene from this file path.
             \return Scene object, or throws an ImporterError if import went wrong.

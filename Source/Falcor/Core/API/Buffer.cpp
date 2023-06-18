@@ -296,7 +296,7 @@ namespace Falcor
             else
             {
                 // For buffers without CPU access we must copy the contents to a staging buffer.
-                logWarning("Buffer::map() performance warning - using staging resource which require us to flush the pipeline and wait for the GPU to finish its work");
+                //logWarning("Buffer::map() performance warning - using staging resource which require us to flush the pipeline and wait for the GPU to finish its work");
                 if (mpStagingResource == nullptr)
                 {
                     mpStagingResource = Buffer::create(mSize, Buffer::BindFlags::None, Buffer::CpuAccess::Read, nullptr);
